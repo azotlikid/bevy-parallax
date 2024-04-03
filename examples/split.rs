@@ -3,8 +3,8 @@ use bevy::{
     render::{camera::Viewport, view::RenderLayers},
 };
 use bevy_parallax::{
-    CreateParallaxEvent, LayerData, LayerSpeed, LayerRepeat, ParallaxCameraComponent, ParallaxMoveEvent,
-    ParallaxPlugin, ParallaxSystems, RepeatStrategy,
+    CreateParallaxEvent, LayerData, LayerRepeat, LayerSpeed, ParallaxCameraComponent,
+    ParallaxMoveEvent, ParallaxPlugin, ParallaxSystems, RepeatStrategy,
 };
 
 fn main() {

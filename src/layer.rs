@@ -65,17 +65,11 @@ impl LayerRepeat {
     }
 
     pub fn has_vertical(&self) -> bool {
-        match self {
-            Self::Horizontal(_) => false,
-            _ => true,
-        }
+        !matches!(self, Self::Horizontal(_))
     }
 
     pub fn has_horizontal(&self) -> bool {
-        match self {
-            Self::Vertical(_) => false,
-            _ => true,
-        }
+        !matches!(self, Self::Vertical(_))
     }
 
     pub fn get_strategy(&self) -> RepeatStrategy {
@@ -99,7 +93,7 @@ impl Animation {
         let total = layer_data.cols * layer_data.rows;
         let duration = match self {
             Self::FPS(fps) => Duration::from_secs_f32(1. / fps),
-            Self::FrameDuration(duration) => duration.clone(),
+            Self::FrameDuration(duration) => *duration,
             Self::TotalDuration(duration) => duration.div_f32(total as f32),
         };
         SpriteFrameUpdate {
@@ -146,13 +140,7 @@ pub struct LayerData {
 
 impl LayerData {
     pub fn create_texture_atlas_layout(&self) -> TextureAtlasLayout {
-        TextureAtlasLayout::from_grid(
-            self.tile_size,
-            self.cols,
-            self.rows,
-            None,
-            None,
-        )
+        TextureAtlasLayout::from_grid(self.tile_size, self.cols, self.rows, None, None)
     }
 
     pub fn create_sprite(&self) -> Sprite {
@@ -203,7 +191,7 @@ impl Default for LayerData {
 pub struct LayerComponent {
     /// Relative speed of layer to the camera movement
     pub speed: Vec2,
-    ///
+
     pub repeat: LayerRepeat,
     /// Number of rows (x) and columns (y) with the textures in the layer
     pub texture_count: Vec2,

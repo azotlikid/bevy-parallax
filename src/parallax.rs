@@ -153,23 +153,14 @@ impl ParallaxMoveEvent {
 }
 
 /// Attach to a single camera to be used with parallax
-#[derive(Component)]
+#[derive(Component, Default)]
 pub struct ParallaxCameraComponent {
     pub render_layer: u8,
 }
 
 impl ParallaxCameraComponent {
     pub fn new(render_layer: u8) -> Self {
-        Self {
-            render_layer: render_layer,
-            ..default()
-        }
-    }
-}
-
-impl Default for ParallaxCameraComponent {
-    fn default() -> Self {
-        Self { render_layer: 0 }
+        Self { render_layer }
     }
 }
 
